@@ -24,7 +24,8 @@
     "noFallthroughCasesInSwitch": true,
     "paths": {
       "@hooks/*": ["./src/hooks/*"],
-      "@components/*": ["./src/components/*"]
+      "@components/*": ["./src/components/*"],
+      "@pages/*": ["./src/pages/*"]
     }
   },
   "include": ["src", "vitest.setup.ts"]
