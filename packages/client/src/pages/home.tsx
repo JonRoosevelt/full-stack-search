@@ -1,18 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { useAccommodations } from "@hooks/useAccommodations";
-import { getCodeSandboxHost } from "@codesandbox/utils";
 import { Hotels } from "@components/hotels";
 import Countries from "@components/countries";
 import Cities from "@components/cities";
 
-const codeSandboxHost = getCodeSandboxHost(3001);
-const API_URL = codeSandboxHost
-  ? `https://${codeSandboxHost}:3001`
-  : "http://localhost:3001";
-
 function Home() {
   const { accommodations, fetchAccommodations, clearAccommodations } =
-    useAccommodations(API_URL);
+    useAccommodations();
   const [showClearBtn, setShowClearBtn] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
 

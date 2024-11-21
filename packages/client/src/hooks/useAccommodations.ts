@@ -1,42 +1,37 @@
 import { useState, useEffect, useRef } from "react";
-import { Accommodations } from "shared";
+import { useMutation } from "@tanstack/react-query";
+import { Accommodations } from "lib";
+import { getAccommodations } from "../api/accommodations";
 
-const fetchData = async (
-  value: string,
-  apiUrl: string,
-): Promise<Accommodations> => {
-  const accommodationsData = await fetch(
-    `${apiUrl}/accommodations?search=${value}`,
-  );
-  return accommodationsData.json();
-};
-
-export function useAccommodations(apiUrl: string) {
+export function useAccommodations() {
   const [accommodations, setAccommodations] = useState<Accommodations | null>(
     null,
   );
-
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const { mutateAsync, isPending, isError } = useMutation({
+    mutationFn: (searchValue: string) => getAccommodations(searchValue),
+    onSuccess: (data) => setAccommodations(data),
+    onError: () => setAccommodations(null),
+  });
 
   const fetchAccommodations = async (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     if (timeoutRef.current) {
-      console.log("here");
-
       clearTimeout(timeoutRef.current);
     }
     timeoutRef.current = setTimeout(async () => {
-      if (event.target.value === "") {
+      const value = event.target.value;
+      if (value === "") {
         setAccommodations(null);
         return;
       }
-      const accommodationsData = await fetchData(event.target.value, apiUrl);
-      setAccommodations(accommodationsData);
+      await mutateAsync(value);
     }, 1000);
   };
 
-  const handleClearAccomodations = () => {
+  const handleClearAccommodations = () => {
     setAccommodations(null);
   };
 
@@ -51,6 +46,8 @@ export function useAccommodations(apiUrl: string) {
   return {
     accommodations,
     fetchAccommodations,
-    clearAccommodations: handleClearAccomodations,
+    clearAccommodations: handleClearAccommodations,
+    isPending,
+    isError,
   };
 }

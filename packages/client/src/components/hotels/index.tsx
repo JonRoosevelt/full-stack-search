@@ -1,4 +1,5 @@
-import { Hotel } from "@hooks/useAccommodations";
+import { Hotel } from "lib";
+import { Link } from "react-router-dom";
 
 interface Props {
   hotels: Hotel[];
@@ -10,10 +11,14 @@ export function Hotels({ hotels }: Props) {
       {hotels.length ? (
         hotels.map((hotel, index) => (
           <li key={index}>
-            <a href={`/hotels/${hotel._id}`} className="dropdown-item">
+            <Link
+              to={`/hotels/${hotel._id}`}
+              state={{ hotel }}
+              className="dropdown-item"
+            >
               <i className="fa fa-building mr-2"></i>
               {hotel.hotel_name}
-            </a>
+            </Link>
             <hr className="divider" />
           </li>
         ))
