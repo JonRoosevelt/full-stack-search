@@ -1,4 +1,5 @@
-import { Country } from "@hooks/useAccommodations";
+import { Country } from "lib";
+import { Link } from "react-router-dom";
 
 interface Props {
   countries: Country[];
@@ -11,13 +12,14 @@ export default function Countries({ countries }: Props) {
       {countries.length ? (
         countries.map((country, index) => (
           <li key={index}>
-            <a
-              href={`/countries/${country.countryisocode}`}
+            <Link
+              to={`/countries/${country.countryisocode}`}
               className="dropdown-item"
+              state={{ country }}
             >
               <i className="fa fa-building mr-2"></i>
               {country.country}
-            </a>
+            </Link>
             <hr className="divider" />
           </li>
         ))

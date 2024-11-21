@@ -9,6 +9,7 @@ export type Hotel = {
 export type City = { _id: string; name: string };
 
 export type Country = {
+  _id: string;
   country: string;
   countryisocode: string;
 };

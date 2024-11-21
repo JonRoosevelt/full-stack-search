@@ -1,4 +1,5 @@
-import { City } from "@hooks/useAccommodations";
+import { City } from "lib";
+import { Link } from "react-router-dom";
 
 interface Props {
   cities: City[];
@@ -11,10 +12,14 @@ export default function Cities({ cities }: Props) {
       {cities.length ? (
         cities.map((city, index) => (
           <li key={index}>
-            <a href={`/cities/${city._id}`} className="dropdown-item">
+            <Link
+              to={`/cities/${city._id}`}
+              className="dropdown-item"
+              state={{ city }}
+            >
               <i className="fa fa-building mr-2"></i>
               {city.name}
-            </a>
+            </Link>
             <hr className="divider" />
           </li>
         ))

@@ -49,12 +49,12 @@ export async function queryAllByText({
   };
 }
 
-interface GetHotelByIdProps {
+interface GetByIdProps {
   mongoClient: MongoClient;
   id: string;
 }
 
-export async function getHotelById({ mongoClient, id }: GetHotelByIdProps) {
+export async function getHotelById({ mongoClient, id }: GetByIdProps) {
   await mongoClient.connect();
   console.log("connected");
 
@@ -62,6 +62,30 @@ export async function getHotelById({ mongoClient, id }: GetHotelByIdProps) {
 
   const objectId = new ObjectId(id);
   const hotel = await db.collection("hotels").findOne({ _id: objectId });
+
+  return hotel;
+}
+
+export async function getCityById({ mongoClient, id }: GetByIdProps) {
+  await mongoClient.connect();
+  console.log("connected");
+
+  const db = mongoClient.db();
+
+  const objectId = new ObjectId(id);
+  const hotel = await db.collection("cities").findOne({ _id: objectId });
+
+  return hotel;
+}
+
+export async function getCountryById({ mongoClient, id }: GetByIdProps) {
+  await mongoClient.connect();
+  console.log("connected");
+
+  const db = mongoClient.db();
+
+  const objectId = new ObjectId(id);
+  const hotel = await db.collection("countries").findOne({ _id: objectId });
 
   return hotel;
 }
