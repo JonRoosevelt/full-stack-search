@@ -1,4 +1,4 @@
-import { MongoClient, ObjectId } from "mongodb";
+import { MongoClient } from "mongodb";
 
 interface QueryAllByTextProps {
   mongoClient: MongoClient;
@@ -47,45 +47,4 @@ export async function queryAllByText({
     cities,
     countries,
   };
-}
-
-interface GetByIdProps {
-  mongoClient: MongoClient;
-  id: string;
-}
-
-export async function getHotelById({ mongoClient, id }: GetByIdProps) {
-  await mongoClient.connect();
-  console.log("connected");
-
-  const db = mongoClient.db();
-
-  const objectId = new ObjectId(id);
-  const hotel = await db.collection("hotels").findOne({ _id: objectId });
-
-  return hotel;
-}
-
-export async function getCityById({ mongoClient, id }: GetByIdProps) {
-  await mongoClient.connect();
-  console.log("connected");
-
-  const db = mongoClient.db();
-
-  const objectId = new ObjectId(id);
-  const hotel = await db.collection("cities").findOne({ _id: objectId });
-
-  return hotel;
-}
-
-export async function getCountryById({ mongoClient, id }: GetByIdProps) {
-  await mongoClient.connect();
-  console.log("connected");
-
-  const db = mongoClient.db();
-
-  const objectId = new ObjectId(id);
-  const hotel = await db.collection("countries").findOne({ _id: objectId });
-
-  return hotel;
 }

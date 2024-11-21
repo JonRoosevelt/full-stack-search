@@ -1,5 +1,5 @@
-import { useLocation, useParams } from "react-router-dom";
-import { Globe } from "lucide-react";
+import { Link, useLocation, useParams } from "react-router-dom";
+import { Globe, StepBack } from "lucide-react";
 import { useCountries } from "@hooks/useCountries";
 import { Country } from "lib";
 
@@ -17,6 +17,9 @@ export default function CountryDetails() {
 
   return (
     <div className="min-vh-100 d-flex flex-row align-items-center justify-content-center bg-primary bg-gradient">
+      <Link to="/">
+        <StepBack color="black" />
+      </Link>
       <div
         className="card shadow-lg p-4 p-md-5 mx-3 mx-md-0"
         style={{ maxWidth: "500px" }}

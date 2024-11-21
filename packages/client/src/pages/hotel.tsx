@@ -1,6 +1,6 @@
-import { useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { useHotels } from "@hooks/useHotels";
-import { Building2, Globe, MapPin } from "lucide-react";
+import { Building2, Globe, MapPin, StepBack } from "lucide-react";
 
 export default function HotelDetails() {
   const { id = "" } = useParams<{ id: string }>();
@@ -16,6 +16,9 @@ export default function HotelDetails() {
 
   return (
     <div className="min-vh-100 d-flex align-items-center justify-content-center bg-primary bg-gradient">
+      <Link to="/">
+        <StepBack color="black" />
+      </Link>
       <div
         className="card shadow-lg p-4 p-md-5 mx-3 mx-md-0"
         style={{ maxWidth: "500px" }}
