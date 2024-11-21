@@ -1,9 +1,11 @@
 import { initializeMongo } from "db/mongoClient";
 import { Request, Response } from "express";
-import { getHotelById, queryAllByText } from "./hotels.service";
+import { getHotelById, queryAllByText } from "./accommodations.service";
 
-export async function filterHotelsController(req: Request, res: Response) {
-  console.log("aqui");
+export async function filterAccommodationsHotelsController(
+  req: Request,
+  res: Response,
+) {
   const mongoClient = await initializeMongo();
   const { search } = req.query;
   if (!search) {
@@ -25,7 +27,6 @@ export async function filterHotelsController(req: Request, res: Response) {
 export async function getHotelController(req: Request, res: Response) {
   const mongoClient = await initializeMongo();
   const { id } = req.params;
-  console.log(id);
   if (!id) {
     return res.status(400).json({ error: "Missing hotel id" });
   }
