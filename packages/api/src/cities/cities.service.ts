@@ -1,3 +1,4 @@
+import { City } from "lib";
 import { MongoClient, ObjectId } from "mongodb";
 
 interface GetByIdProps {
@@ -5,14 +6,19 @@ interface GetByIdProps {
   id: string;
 }
 
-export async function getCityById({ mongoClient, id }: GetByIdProps) {
+export async function getCityById({
+  mongoClient,
+  id,
+}: GetByIdProps): Promise<City | null> {
   await mongoClient.connect();
   console.log("connected");
 
   const db = mongoClient.db();
 
   const objectId = new ObjectId(id);
-  const hotel = await db.collection("cities").findOne({ _id: objectId });
+  const city = (await db
+    .collection("cities")
+    .findOne({ _id: objectId })) as unknown as City | null;
 
-  return hotel;
+  return city;
 }

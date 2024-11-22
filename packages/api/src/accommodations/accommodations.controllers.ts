@@ -1,4 +1,4 @@
-import { initializeMongo } from "db/mongoClient";
+import { initializeMongo } from "../../db/mongoClient";
 import { Request, Response } from "express";
 import { queryAllByText } from "./accommodations.service";
 
@@ -7,6 +7,7 @@ export async function filterAccommodationsHotelsController(
   res: Response,
 ) {
   const mongoClient = await initializeMongo();
+  console.log("aqui");
   const { search } = req.query;
   if (!search) {
     return res

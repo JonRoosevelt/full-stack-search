@@ -1,3 +1,4 @@
+import { Accommodations, City, Hotel } from "lib";
 import { MongoClient } from "mongodb";
 
 interface QueryAllByTextProps {
@@ -8,7 +9,7 @@ interface QueryAllByTextProps {
 export async function queryAllByText({
   mongoClient,
   search,
-}: QueryAllByTextProps) {
+}: QueryAllByTextProps): Promise<Accommodations> {
   await mongoClient.connect();
   console.log("connected");
   const db = mongoClient.db();
@@ -42,9 +43,11 @@ export async function queryAllByText({
     })
     .toArray();
 
-  return {
+  const accommodations: Accommodations = {
     hotels,
     cities,
     countries,
-  };
+  } as unknown as Accommodations;
+
+  return accommodations;
 }
