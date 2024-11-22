@@ -10,6 +10,9 @@ export async function getCityController(req: Request, res: Response) {
   }
   try {
     const city = await getCityById({ mongoClient, id: id.toString() });
+    if (!city) {
+      res.status(404);
+    }
     res.send(city);
   } finally {
     await mongoClient.close();

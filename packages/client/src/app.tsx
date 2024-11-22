@@ -18,9 +18,6 @@ function App() {
           <Route path="/hotels/:id" element={<HotelDetails />} />
           <Route path="/cities/:id" element={<CityDetails />} />
           <Route path="/countries/:id" element={<CountryDetails />} />
-          {/*
-        <Route path="*" element={<NotFound />} />
- */}
         </Routes>
       </Router>
     </QueryClientProvider>

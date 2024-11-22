@@ -10,6 +10,9 @@ export async function getCountryController(req: Request, res: Response) {
   }
   try {
     const country = await getCountryById({ mongoClient, id: id.toString() });
+    if (!country) {
+      res.status(404);
+    }
     res.send(country);
   } finally {
     await mongoClient.close();
